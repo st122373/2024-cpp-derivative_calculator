@@ -15,18 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Downloads\2024-cpp-derivative_calculator\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Downloads\2024-cpp-derivative_calculator\osnovnie_funccii.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Downloads\2024-cpp-derivative_calculator\realised_funccii.cpp">
+    <ClCompile Include="functions.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Downloads\2024-cpp-derivative_calculator\osnovnie_funccii.h">
+    <ClInclude Include="functions.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>
