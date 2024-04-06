@@ -23,4 +23,3 @@ double sign(double x)
         return 0;
     }
 }
-
