@@ -1,28 +1,21 @@
-/*
- * Sivam Patel
- * SXP180045
- * 5/3/39
- * The folowing is a program that reads in functions from a file and then outputs the derivative.
- */
-
 #include <cstdlib>
-#include "linkedlist.h"
+#include "Linkedlist.h"
 #include <fstream>
  // function prototypes
 void ifIsX(int&, char*, Node*);
 void ifTrig(int&, char*, Node*);
 
-std::ostream& operator << (std::ostream& os, linkedlist& list);
+std::ostream& operator << (std::ostream& os, Linkedlist& list);
 std::ostream& operator << (std::ostream& os, Node*);
-void derive(char*, linkedlist&);
+void derive(char*, Linkedlist&);
 
 
-int main()
+int main(int argc,char* argv[])
 {
     char functions[] = "functions.txt";
     char derivatives[] = "derive.txt";
     std::ifstream file;
-    linkedlist list;
+    Linkedlist list;
 
     file.open(functions);
 
@@ -31,15 +24,16 @@ int main()
     {
         std::cout << "error" << std::endl;
         return 1;
-    }// end of if statement
+    } 
     // while not at end of file, loop
     while (!file.eof())
     {
         // clear list
-        list.~linkedlist();
+        list.~Linkedlist();
         char* line = new char[100];
         // get next line in file
         file.getline(line, 100, '\n');
+        std::cout << "Enter you function" << std::endl;
         std::cout << line << std::endl;
 
         int count = 0;
@@ -55,7 +49,7 @@ int main()
                 if (line[count] == '-')
                     n->setOuter(-1);
                 count++;
-            }// end of if statement
+            } 
 
             // if char is space
             if (line[count] == ' ') {
@@ -68,19 +62,19 @@ int main()
                 count += 3;
                 ifTrig(count, line, n);
                 continue;
-            }// end of if statement
+            } 
             else if (line[count] == 's') {
                 n->setTrig(1);
                 count += 3;
                 ifTrig(count, line, n);
                 continue;
-            }// end of if statement
+            } 
             else if (line[count] == 't') {
                 n->setTrig(3);
                 count += 3;
                 ifTrig(count, line, n);
                 continue;
-            }// end of if statement
+            } 
 
             // if char is a number 0-9
             if (line[count] >= 48 && line[count] <= 57)
@@ -90,25 +84,25 @@ int main()
                     n->setOuter(10);
                     count += 2;
                     continue;
-                }// end of if statement
+                } 
 
                 else {
                     n->setOuter(std::atoi(&line[count]));
                     count++;
                     continue;
-                }// end of if statement
+                } 
 
-            }// end of if statement
+            } 
 
             // if char is X
             if (line[count == 'x'])
             {
                 ifIsX(count, line, n);
                 continue;
-            }// end of if statement
+            } 
 
             count++;
-        }// end of if statement
+        } 
 
         // delete array
         delete[] line;
@@ -119,9 +113,10 @@ int main()
         // output derivative to file
         derive(derivatives, list);
         // print list
+        std::cout << "You entered" << std::endl;
         std::cout << list << std::endl;
         // clear list
-        list.~linkedlist();
+        list.~Linkedlist();
     }
     // close file
     file.close();
@@ -140,26 +135,26 @@ void ifIsX(int& count, char* line, Node* n)
         {
             n->setExponent(-1);
             count++;
-        }// end of if statement
+        } 
 
         if (line[count + 1] == '1' && line[count + 2] == '0')
         {
             n->setExponent(10);
             count += 2;
-        }// end of if statement
+        } 
 
         else
         {
             n->setExponent(std::atoi(&line[count + 1]));
             count += 2;
-        }// end of if statement
+        } 
 
     }
     else
     {
         n->setExponent(1);
         count++;
-    }// end of if statement
+    } 
 
 } // end of function
 
@@ -171,19 +166,19 @@ void ifTrig(int& count, char* line, Node* n)
     {
         n->setInner(-1);
         count++;
-    }// end of if statement
+    } 
 
     if (line[count] == '1' && line[count + 1] == '0')
     {
         n->setInner(10);
         count += 2;
-    }// end of if statement
+    } 
 
     else if (line[count] >= 48 && line[count] <= 57)
     {
         n->setInner(std::atoi(&line[count]));
         count++;
-    }// end of if statement
+    } 
 
     else
         n->setInner(1);
@@ -191,7 +186,7 @@ void ifTrig(int& count, char* line, Node* n)
     if (line[count] == 'x')
     {
         return;
-    }// end of if statement
+    } 
 
 
 }
@@ -202,7 +197,7 @@ std::ostream& operator << (std::ostream& os, Node* n)
     {
         os << "0x0" << std::endl;
         return os;
-    }// end of if statement
+    } 
 
     if (n->trig)
     {
@@ -231,21 +226,21 @@ std::ostream& operator << (std::ostream& os, Node* n)
                 os << n->outer * -1;
             else
                 os << n->outer;
-        }// end of if statement
+        } 
 
 
         if (n->exponent != 0)
         {
             if (n->exponent == 1)
             {
-                // end of if statement
+                 
                 os << "x";
             }
             else
             {
                 os << "x^" << n->exponent;
             }
-        }// end of if statement
+        } 
 
         else
         {
@@ -258,7 +253,7 @@ std::ostream& operator << (std::ostream& os, Node* n)
     return os;
 }
 
-std::ostream& operator << (std::ostream& os, linkedlist& list)
+std::ostream& operator << (std::ostream& os, Linkedlist& list)
 {
     int x = 0;
     while (list[x] != nullptr)
@@ -275,7 +270,7 @@ std::ostream& operator << (std::ostream& os, linkedlist& list)
     return os;
 }
 
-void derive(char* page, linkedlist& list)
+void derive(char* page, Linkedlist& list)
 {
     std::ofstream file;
     file.open(page, std::ios::app);

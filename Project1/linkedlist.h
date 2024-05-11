@@ -1,24 +1,19 @@
-/*
- * Sivam Patel
- * SXP180045
- */
-
-#ifndef CS1337_PROJECT_LINKEDLIST_H
-#define CS1337_PROJECT_LINKEDLIST_H
+#ifndef CS1337_PROJECT_Linkedlist_H
+#define CS1337_PROJECT_Linkedlist_H
 
 #include "Node.h"
 
-class linkedlist {
+class Linkedlist {
 	Node* head;
 
 public:
-	friend std::ostream& operator << (std::ostream& os, linkedlist& list);
+	friend std::ostream& operator << (std::ostream& os, Linkedlist& list);
 
-	linkedlist();
+	Linkedlist();
 
-	linkedlist(linkedlist& list);
+	Linkedlist(Linkedlist& list);
 
-	~linkedlist();
+	~Linkedlist();
 
 	void deleteList();
 
@@ -36,5 +31,4 @@ public:
 
 };
 
-
-#endif //CS1337_PROJECT_LINKEDLIST_H
+#endif 

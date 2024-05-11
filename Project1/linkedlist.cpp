@@ -1,16 +1,11 @@
-/*
- * Sivam Patel
- * SXP180045
- */
+#include "Linkedlist.h"
 
-#include "linkedlist.h"
-
-linkedlist::linkedlist()
+Linkedlist::Linkedlist()
 {
     head = nullptr;
 }
 
-linkedlist::linkedlist(linkedlist& list)
+Linkedlist::Linkedlist(Linkedlist& list)
 {
     Node* iter = list.head;
     if (iter == nullptr)
@@ -30,12 +25,12 @@ linkedlist::linkedlist(linkedlist& list)
     }
 }
 
-linkedlist::~linkedlist() {
+Linkedlist::~Linkedlist() {
 
     deleteList();
 
 }
-void linkedlist::deleteList()
+void Linkedlist::deleteList()
 {
     Node* iter = head;
     while (iter != nullptr)
@@ -48,7 +43,7 @@ void linkedlist::deleteList()
 
 }
 
-void linkedlist::addNode(Node* n)
+void Linkedlist::addNode(Node* n)
 {
     if (head == nullptr)
     {
@@ -63,12 +58,12 @@ void linkedlist::addNode(Node* n)
     iter->setNext(n);
 }
 
-Node* linkedlist::getHead()
+Node* Linkedlist::getHead()
 {
     return  head;
 }
 
-void linkedlist::sort()
+void Linkedlist::sort()
 {
     Node* iter = head;
     if (iter == nullptr)
@@ -98,7 +93,7 @@ void linkedlist::sort()
     } while (swap);
 }
 
-int linkedlist::getSize()
+int Linkedlist::getSize()
 {
     Node* iter = head;
     int size = 0;
@@ -110,7 +105,7 @@ int linkedlist::getSize()
     return size;
 }
 
-void linkedlist::operator ++ ()
+void Linkedlist::operator ++ ()
 {
     Node* placeholder = head;
     Node* n = new Node();
@@ -118,7 +113,7 @@ void linkedlist::operator ++ ()
     n->setNext(placeholder);
 }
 
-Node* linkedlist::operator [] (int i)
+Node* Linkedlist::operator [] (int i)
 {
     Node* iter = head;
     while (iter != nullptr && i > 0) {

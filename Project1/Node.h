@@ -1,8 +1,3 @@
-/*
- * Sivam Patel
- * SXP180045
- */
-
 #ifndef CS1337_PROJECT_NODE_H
 #define CS1337_PROJECT_NODE_H
 
@@ -49,4 +44,4 @@ public:
 };
 
 
-#endif //CS1337_PROJECT_NODE_H
+#endif
