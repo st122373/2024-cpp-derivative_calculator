@@ -79,12 +79,18 @@ int main(int argc,char* argv[])
             // if char is a number 0-9
             if (line[count] >= 48 && line[count] <= 57)
             {
-                if (line[count] == '1' && line[count + 1] == '0')
+                if (line[count] >= '0' && line[count] <= '9')
                 {
-                    n->setOuter(10);
-                    count += 2;
+                    // Parse the entire number
+                    int num = 0;
+                    while (line[count] >= '0' && line[count] <= '9')
+                    {
+                        num = num * 10 + (line[count] - '0');
+                        count++;
+                    }
+                    n->setOuter(num);
                     continue;
-                } 
+                }
 
                 else {
                     n->setOuter(std::atoi(&line[count]));
@@ -95,7 +101,7 @@ int main(int argc,char* argv[])
             } 
 
             // if char is X
-            if (line[count == 'x'])
+            if (line[count] == 'x')
             {
                 ifIsX(count, line, n);
                 continue;
