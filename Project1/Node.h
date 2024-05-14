@@ -1,5 +1,5 @@
-#ifndef CS1337_PROJECT_NODE_H
-#define CS1337_PROJECT_NODE_H
+#ifndef NODE_H
+#define NODE_H
 
 #include <iostream>
 

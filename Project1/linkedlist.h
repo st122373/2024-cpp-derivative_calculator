@@ -1,5 +1,5 @@
-#ifndef CS1337_PROJECT_Linkedlist_H
-#define CS1337_PROJECT_Linkedlist_H
+#ifndef Linkedlist_H
+#define Linkedlist_H
 
 #include "Node.h"
 

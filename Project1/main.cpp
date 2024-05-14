@@ -12,6 +12,10 @@ void parser(char*& line, Node*& n, Linkedlist& list);
 void parse_if_Is_Oper(int& count, char*& line, Node*& n, Linkedlist& list);
 void parse_if_is_NUM(int& count, char*& line, Node*& n, Linkedlist& list);
 
+void derive_tan(char* page, Linkedlist& list, int& x, std::ofstream& file);
+void derive_sin(char* page, Linkedlist& list, int& x, std::ofstream& file);
+void derive_cos(char* page, Linkedlist& list, int& x, std::ofstream& file);
+
 
 int main(int argc,char* argv[])
 {
@@ -294,170 +298,105 @@ void derive(char* page, Linkedlist& list)
 	int x = 0;
 	while (list[x] != nullptr)
 	{
-		if (x == 0)
+		if (list[x]->getTrig())
 		{
-			if (list[x]->getTrig())
+			if (list[x]->getTrig() == TAN)
 			{
-				if (list[x]->getTrig() == TAN)
-				{
-					if (list[x]->getOuter() * list[x]->getInner() < 0)
-					{
-						if (list[x]->getOuter() == 1)
-						{
-							if (list[x]->getInner() == -1)
-							{
-								file << "sec^2 -x ";
-							}
-							else
-								file << list[x]->getInner() << "sec^2 " << list[x]->getInner() << "x ";
-						}
-						else
-							if (list[x]->getInner() == 1)
-							{
-								if (list[x]->getOuter() == -1)
-									file << "sec^2 x ";
-							}
-							else
-								file << list[x]->getOuter() * list[x]->getInner() << "sec^2 " << list[x]->getInner() << "x ";
-					}
-					else
-					{
-						if (list[x]->getOuter() == 1)
-						{
-							if (list[x]->getInner() == 1)
-							{
-								file << "-sec^2 x ";
-							}
-							else
-								file << list[x]->getInner() * -1 << "sec^2 " << list[x]->getInner() << "x ";
-						}
-						else
-							file << list[x]->getOuter() * list[x]->getInner() * -1 << "sec^2 " << list[x]->getInner() << "x ";
-					}
-				}
-				else if (list[x]->getTrig() == SIN)
-				{
-					if (list[x]->getInner() == 1)
-					{
-						if (list[x]->getOuter() == 1)
-							file << "cos x ";
-						else
-							file << list[x]->getOuter() << "cos x ";
-					}
-					else
-					{
-						if (list[x]->getOuter() == 1)
-							file << list[x]->getInner() << "cos " << list[x]->getInner() << "x ";
-						else
-							file << list[x]->getOuter() * list[x]->getInner() << "cos " << list[x]->getInner() << "x ";
-					}
-				}
-				else if (list[x]->getTrig() == COS)
-				{
-					if (list[x]->getOuter() * list[x]->getInner() < 0)
-					{
-						if (list[x]->getOuter() == 1)
-						{
-							if (list[x]->getInner() == -1)
-								file << "sin -x ";
-						}
-						else
-							if (list[x]->getInner() == 1)
-								if (list[x]->getOuter() == -1)
-									file << "sin x ";
-								else
-									file << list[x]->getOuter() * -1 << "sin x ";
-							else
-								file << list[x]->getOuter() * list[x]->getInner() * -1 << "sin " << list[x]->getInner() << "x ";
-					}
-					else
-					{
-						file << list[x]->getOuter() * list[x]->getInner() * -1 << "sin " << list[x]->getInner() << "x ";
-					}
-				}
+				derive_tan(page, list, x, file);
 			}
-			else if (list[x]->getExponent() == 0)
+			else if (list[x]->getTrig() == SIN)
 			{
-				file << 0 << " ";
+				derive_sin(page, list, x, file);
 			}
-			else if (list[x]->getExponent() == 1)
+			else if (list[x]->getTrig() == COS)
 			{
-				file << list[x]->getOuter() << " ";
+				derive_cos(page, list, x, file);
 			}
-			else if (list[x]->getExponent() == 2)
-			{
-				file << list[x]->getOuter() * 2 << "x ";
-			}
-			else
-			{
-				file << list[x]->getOuter() * list[x]->getExponent() << "x^" << list[x]->getExponent() - 1 << " ";
-			}
+		}
+		else if (list[x]->getExponent() == 0)
+		{
+			file << "+ " << 0 << " ";
+		}
+		else if (list[x]->getExponent() == 1)
+		{
+			file << "+ " << list[x]->getOuter() << " ";
 		}
 		else
 		{
-			if (list[x]->getTrig())
-			{
-				if (list[x]->getTrig() == TAN)
-				{
-					if (list[x]->getOuter() * list[x]->getInner() < 0)
-					{
-						file << "+ " << list[x]->getOuter() * list[x]->getInner() << "sec^2 " << list[x]->getInner() << "x ";
-					}
-					else
-					{
-						file << "- " << list[x]->getOuter() * list[x]->getInner() << "sec^2 " << list[x]->getInner() << "x ";
-					}
-				}
-				else if (list[x]->getTrig() == SIN)
-				{
-					if (list[x]->getOuter() * list[x]->getInner() > 0)
-					{
-						file << "+ " << list[x]->getOuter() * list[x]->getInner() << "cos " << list[x]->getInner() << "x ";
-					}
-					else
-						file << "- " << list[x]->getOuter() * list[x]->getInner() * -1 << "cos " << list[x]->getInner() << "x ";
-
-				}
-				else if (list[x]->getTrig() == COS)
-				{
-					if (list[x]->getOuter() * list[x]->getInner() < 0)
-					{
-						file << "+ " << list[x]->getOuter() * list[x]->getInner() << "sin " << list[x]->getInner() << "x ";
-					}
-					else
-					{
-						file << "- " << list[x]->getOuter() * list[x]->getInner() << "sin " << list[x]->getInner() << "x ";
-					}
-				}
-			}
-			else if (list[x]->getExponent() == 0)
-			{
-				file << "+ " << 0 << " ";
-			}
-			else if (list[x]->getExponent() == 1)
-			{
-				if (list[x]->getOuter() > 0)
-					file << "+ " << list[x]->getOuter() << " ";
-				else
-					file << "- " << -1 * list[x]->getOuter() << " ";
-			}
-			else if (list[x]->getExponent() == 2)
-			{
-				if (list[x]->getOuter() > 0)
-					file << "+ " << list[x]->getOuter() * 2 << "x ";
-				else
-					file << "- " << -1 * list[x]->getOuter() * 2 << "x ";
-			}
-			else
-			{
-				if (list[x]->getOuter() * list[x]->getExponent() > 0)
-					file << "+ " << list[x]->getOuter() * list[x]->getExponent() << "x^" << list[x]->getExponent() - 1 << " ";
-				else
-					file << "- " << -1 * list[x]->getOuter() * list[x]->getExponent() << "x^" << list[x]->getExponent() - 1 << " ";
-			}
+			file << list[x]->getOuter() * list[x]->getExponent() << "x^" << list[x]->getExponent() - 1 << " ";
 		}
+		
 		x++;
 	}
 	file << std::endl;
 	file.close();
+}
+void derive_tan(char* page, Linkedlist& list, int& x, std::ofstream& file)
+{
+	if (x == 0)
+	{
+		if (list[x]->getOuter() * list[x]->getInner() < 0)
+		{
+			file << list[x]->getOuter() * list[x]->getInner() << "sec^2 " << list[x]->getInner() << "x ";
+		}
+		else
+		{
+			file << list[x]->getOuter() * list[x]->getInner() << "sec^2 " << list[x]->getInner() << "x ";
+		}
+	}
+	else 
+	{
+		if (list[x]->getOuter() * list[x]->getInner() < 0)
+		{
+			file << "+ " << list[x]->getOuter() * list[x]->getInner() << "sec^2 " << list[x]->getInner() << "x ";
+		}
+		else
+		{
+			file << "- " << list[x]->getOuter() * list[x]->getInner() << "sec^2 " << list[x]->getInner() << "x ";
+		}
+	}
+}
+
+void derive_sin(char* page, Linkedlist& list, int& x, std::ofstream& file)
+{
+	if (x == 0)
+	{
+		if (list[x]->getOuter() == 1)
+			file << list[x]->getInner() << "cos " << list[x]->getInner() << "x ";
+		else
+			file << list[x]->getOuter() * list[x]->getInner() << "cos " << list[x]->getInner() << "x ";
+	}
+	else
+	{
+		if (list[x]->getOuter() * list[x]->getInner() > 0)
+		{
+			file << "+ " << list[x]->getOuter() * list[x]->getInner() << "cos " << list[x]->getInner() << "x ";
+		}
+		else
+		{
+			file << "- " << list[x]->getOuter() * list[x]->getInner() * -1 << "cos " << list[x]->getInner() << "x ";
+		}
+	}
+}
+
+void derive_cos(char* page, Linkedlist& list, int& x, std::ofstream& file)
+{
+	if (x == 0)
+	{
+		if (list[x]->getOuter() == 1)
+			file << list[x]->getInner() << "sin " << list[x]->getInner() << "x ";
+		else
+			file << list[x]->getOuter() * list[x]->getInner() << "sin " << list[x]->getInner() << "x ";
+	}
+	else
+	{
+		if (list[x]->getOuter() * list[x]->getInner() < 0)
+		{
+			file << "+ " << list[x]->getOuter() * list[x]->getInner() << "sin " << list[x]->getInner() << "x ";
+		}
+		else
+		{
+			file << "- " << list[x]->getOuter() * list[x]->getInner() << "sin " << list[x]->getInner() << "x ";
+		}
+	}
 }
