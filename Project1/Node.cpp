@@ -18,6 +18,19 @@ Node::Node(int o, int i, int e, int t)
     next = nullptr;
 }
 
+Node::Node(Node&& other) noexcept
+    : outer(other.outer),
+    inner(other.inner),
+    exponent(other.exponent),
+    trig(other.trig),
+    next(other.next) {
+    other.outer = 0;
+    other.inner = 0;
+    other.exponent = 0;
+    other.trig = NONE;
+    other.next = nullptr;
+}
+
 int Node::getOuter()
 {
     return outer;

@@ -19,6 +19,8 @@ public:
 
 	Node(int o, int i, int e, int t);
 
+	Node(Node&& other) noexcept;
+
 	int getOuter();
 
 	int getInner();
